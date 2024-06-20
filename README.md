@@ -7,7 +7,7 @@ Message reception and processing is handled on the bladeRF through an FPGA image
 The pi hosts a local network which you can connect to and view the decoded messages on a map without requiring an internet connection.
 
 
-#Requirements/components
+# Requirements/components
 
 tar1090
 
@@ -96,7 +96,7 @@ sudo raspi-config
 Set your network location correctly
 
 
-#Configuring the hosted network:
+# Configuring the hosted network:
 ```
 sudo nano /etc/hostapd/hostapd.conf
 ```
@@ -119,7 +119,7 @@ rsn_pairwise=CCMP
 
 Reboot the pi and hopefully the network comes up.
 
-#Dump1090-fa
+# Dump1090-fa
 
 Dump1090 should be able to be installed by a package manager
 
@@ -149,7 +149,7 @@ To install extra detailed tiles:
 curl https://raw.githubusercontent.com/wiedehopf/adsb-scripts/master/osm_tiles_offline_10.sh | sudo bash
 ```
 
-#Tar1090
+# Tar1090
 To create the webserver at the root eg: adsb.local instead of adsb.local/tar1090:
 
 Create the following file with contents before installing:
@@ -175,7 +175,7 @@ sudo nano /usr/local/share/tar1090/html-webroot/config.js
 # NOTE TO ME: ADD INSTRUCTIONS TO CONFIGURE FOR OFFLINE MAP
 
 
-#BladeRF-ADSB
+# BladeRF-ADSB
 
 Requires libbladerf, i reccommend building the latest version from source. The package managers seem to have outdated versions.
 
