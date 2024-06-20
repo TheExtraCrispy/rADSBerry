@@ -28,111 +28,16 @@ netfilter-persistent
 iptables-persistent
 # Setting up access point
 
-Install and enable dnsmasq and hostapd
-
+The script in the access-point directory should automatically install the required packages and configure them.
+When you run the script, supply it with the desired SSID and passphrase:
 ```
-sudo apt install hostapd
-
-sudo systemctl unmask hostapd
-sudo systemctl enable hostapd
-```
--------------I DONT HONESTLY KNOW IF THIS PART IS NEEDED YET--------------------------
-Installing netfilter and iptables
-
-```
-sudo DEBIA_FRONTEND=noninteractive apt install -y netfilter-persistent iptables-persistent
+sudo ./APSetup.sh YourNetworkNameHere YourPassphraseHere
 ```
 
-Configuration
-```
-sudo nano /etc/dhcpcd.conf
-```
-
-Add to the bottom of the file:
-```
-interface wlan0
-hook wpa_supplicant
-```
-
-Create this file with the following contents:
-```
-sudo nano /etc/sysctl.d/routed-ap.conf
-```
-
-```
-net.ipv4.ip_forward=1
-```
-
-```
-sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
-```
-
-```
-sudo netfilter-persistent save
-```
-
-------pretty sure yoy need this part-----------
-```
-sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig
-sudo nano /etc/dnsmasq.conf
-```
-Add this to the file:
-```
-interface=wlan0
-dhcp-range=192.168.11.2,192.168.11.20,255.255.255.0,24h
-
-domain=wlan
-address=/gw.wlan/192.168.11.1
-```
-
-Ensure it isn't blocked
-```
-sudo rfkill unblock wlan
-```
-
-```
-sudo raspi-config
-```
-Set your network location correctly
-
-
-# Configuring the hosted network:
-```
-sudo nano /etc/hostapd/hostapd.conf
-```
-
-```
-country_code=US
-interface=wlan0
-ssid=YOUR NETWORK NAME HERE
-hw_mode=a (note, set this to b if using earlier than rpi 3b+)
-channel=7
-macaddr_acl=0
-auth_algs=1
-ignore_broadcast_ssid=0
-wpa=2
-wpa_passphrase=YOUR NETWORK PASSWORD HERE
-wpa_key_mgmt=WPA-PSK
-wpa_pairwise=TKIP
-rsn_pairwise=CCMP
-```
-
-Reboot the pi and hopefully the network comes up.
 
 # Dump1090-fa
 
-Dump1090 should be able to be installed by a package manager
-
-```
-sudo apt install dump1090-fa
-```
-
-To configure the receiver:
-```
-sudo nano /etc/default/dump1090-fa
-```
-
-# remember to upload the premade config file
+The script in the dump1090 directory should automatically install and configure dump1090-fa for the bladeRF.
 
 #Tar1090 Offline map files
 This is the slow part. To serve the map tiles offline they need to be downloaded and stored locally. Theres two qualities:
@@ -140,40 +45,24 @@ Required Tiles: 700mb download, 2gb on disk. Supports a limited amount of zoom.
 Extra Detailed Tiles: Requires previous tiles, allows more zooming. 1.3GB download, 4GB on disk.
 
 To install required files:
+
 ```
-curl https://raw.githubusercontent.com/wiedehopf/adsb-scripts/master/osm_tiles_offline.sh | sudo bash
+sudo ./downloadOfflineMap
 ```
 
-To install extra detailed tiles:
+To then install extra detailed tiles:
 ```
-curl https://raw.githubusercontent.com/wiedehopf/adsb-scripts/master/osm_tiles_offline_10.sh | sudo bash
+sudo ./downloadOfflineMap Extra
 ```
 
 # Tar1090
-To create the webserver at the root eg: adsb.local instead of adsb.local/tar1090:
 
-Create the following file with contents before installing:
-```
-/run/dump1090-fa webroot
-```
+The script under tar1090 should automatically install and configure the webserver. It can be accessed through the hosted network under HOSTNAME.local, whatever your hostname on the device is.
+NOTE: Only run this AFTER you've installed dump1090-fa and all the offline map files you want.
 
-The creator of tar1090 provides an installation script:
 ```
-sudo bash -c "$(wget -nv -0 - https://github.com/wiedehopf/tar1090/raw/master/install.sh)"
+sudo ./setuptar1090
 ```
-
-To configure tar1090:
-```
-sudo nano /etc/default/tar1090-webroot
-```
-
-To configure the webpage itself:
-```
-sudo nano /usr/local/share/tar1090/html-webroot/config.js
-```
-
-# NOTE TO ME: ADD INSTRUCTIONS TO CONFIGURE FOR OFFLINE MAP
-
 
 # BladeRF-ADSB
 
