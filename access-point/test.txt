@@ -1,0 +1,4 @@
+hoo hee hee hoo hooh yippee
+
+interface wlan0 
+hook wpa_supplicant
