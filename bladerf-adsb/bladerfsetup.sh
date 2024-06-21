@@ -1,27 +1,31 @@
 #!/usr/bin/env bash
 
-#pull down my github files
-#download images
-#build
-
-systemctl daemon-reload
-systemctl enable bladeRF-adsb.service
 
 
-echo "Downloading bladerf-adsb..."
-git clone github.com/theextracrispy/bladerf-adsb
+echo -e "\nDownloading bladerf-adsb..."
+git clone https://github.com/TheExtraCrispy/bladeRF-adsb
 
-cd bladerf-adsb/bladerf_adsb
+cd bladeRF-adsb/bladeRF_adsb
 
-echo "Downloading FPGA images..."
+echo -e "\nDownloading FPGA images..."
 wget http://nuand.com/fpga/adsbx40.rbf
 wget http://nuand.com/fpga/adsbx115.rbf
 wget http://nuand.com/fpga/adsbxA4.rbf
 wget http://nuand.com/fpga/adsbxA5.rbf
 wget http://nuand.com/fpga/adsbxA9.rbf
 
-echo "Building bladerf-adsb..."
+echo -e "\nBuilding bladerf-adsb..."
 make
+
+echo -e "\nSetting up service..."
+
+cd ..
+
+./install.sh
+
+systemctl daemon-reload
+systemctl enable bladeRF-adsb.service
+
 
 echo "Done."
 
