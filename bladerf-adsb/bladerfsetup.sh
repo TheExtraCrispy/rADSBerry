@@ -21,7 +21,7 @@ echo -e "\nSetting up service..."
 
 cd ..
 
-./install.sh
+./install.sh unified 60
 
 systemctl daemon-reload
 systemctl enable bladeRF-adsb.service
