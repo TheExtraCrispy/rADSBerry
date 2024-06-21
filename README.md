@@ -14,7 +14,7 @@ To just run all the installation scripts you run them in this order:
 2. setuplibbladerf.sh
 3. setupdump1090.sh
 4. setuptar1090.sh
-5. bladerfsetup.sh
+5. setupbladerf.sh
 6. APsetup.sh
 
 Then, reboot the pi and pray
