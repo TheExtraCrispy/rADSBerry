@@ -6,6 +6,18 @@ Message reception and processing is handled on the bladeRF through an FPGA image
 
 The pi hosts a local network which you can connect to and view the decoded messages on a map without requiring an internet connection.
 
+# Quick install order
+To just run all the installation scripts you run them in this order:
+
+1. downloadOfflineMap.sh
+2. (optional) downloadOfflineMap.sh extra
+2. setuplibbladerf.sh
+3. setupdump1090.sh
+4. setuptar1090.sh
+5. bladerfsetup.sh
+6. APsetup.sh
+
+Then, reboot the pi and pray
 
 # Requirements/components
 
