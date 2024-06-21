@@ -8,4 +8,4 @@ cp tar1090-webroot /etc/default/tar1090-webroot
 
 cp config.js /usr/local/share/tar1090/html-webroot/config.js
 
-systemctl restart tar1090
+systemctl restart tar1090-webroot
