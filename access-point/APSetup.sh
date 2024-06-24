@@ -19,7 +19,7 @@ else
 	echo -e "Saving original as dhcpcd.conf.orig"
 	mv /etc/dhcpcd.conf /etc/dhcpcd.conf.orig
 
-	echo -e "\ninterface wlan0 \nhook wpa_supplicant" >> /etc/dhcpcd.conf
+	echo -e "\ninterface wlan0 \nnohook wpa_supplicant" >> /etc/dhcpcd.conf
 fi
 
 echo -e "dhcpcd.conf configuration done.\n"
