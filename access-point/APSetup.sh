@@ -9,9 +9,11 @@ sudo systemctl enable hostapd
 
 sudo apt install dnsmasq
 
+sudo DEBIAN_FRONTEND=noninteractive apt install -y netfilter-persistent iptables-persistent
+
 last=$(tail -n 1 /etc/dhcpcd.conf)
 
-if [ "$last" = "hook wpa_supplicant" ]
+if [ "$last" = "nohook wpa_supplicant" ]
 then
 	echo -e "dhcpcd.conf already configured."
 else
@@ -19,7 +21,7 @@ else
 	echo -e "Saving original as dhcpcd.conf.orig"
 	mv /etc/dhcpcd.conf /etc/dhcpcd.conf.orig
 
-	echo -e "\ninterface wlan0 \nnohook wpa_supplicant" >> /etc/dhcpcd.conf
+	echo -e "\ninterface wlan0\n static ip_address=192.168.11.1/24\nnohook wpa_supplicant" >> /etc/dhcpcd.conf
 fi
 
 echo -e "dhcpcd.conf configuration done.\n"
