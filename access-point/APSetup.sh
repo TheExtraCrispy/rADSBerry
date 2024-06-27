@@ -42,6 +42,19 @@ fi
 echo -e "dnsmasq.conf done."
 
 
+#This is for routing traffic from AP to ethernet and then the internet, dont think its needed for this
+#echo -e "Configuring routed-ap.conf"
+#if [ -f /etc/sysctl.d/routed-ap.conf ]
+#then
+#	echo -e "routed-ap.conf already exists."
+#else
+#	echo -e "net.ipv4.ip_forward=1" >> /etc/sysctl.d/routed-ap.conf
+#	iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+#fi
+#echo -e "routed-ap.conf done"
+
+netfilter-persistent save
+
 echo -e "Configuring hostapd.conf"
 
 if [[ $# -ge 2 ]]
