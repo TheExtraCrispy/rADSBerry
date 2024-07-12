@@ -6,7 +6,7 @@ cd dump1090
 
 make RTLSDR=no HACKRF=no LIMESDR=no SOAPYSDR=no
 
-cd dump1090 /usr/bin/dump1090-fa
+cp dump1090 /usr/bin/dump1090-fa
 
 cd ..
 
