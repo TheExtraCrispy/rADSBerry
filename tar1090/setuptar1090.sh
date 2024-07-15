@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+apt install lighttpd
+
 cp tar1090_instances /etc/default/tar1090_instances
 
 bash -c "$(wget -nv -O - https://github.com/wiedehopf/tar1090/raw/master/install.sh)"
